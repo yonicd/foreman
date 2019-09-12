@@ -15,8 +15,8 @@ The goals of foreman are to:
     functions within it.
   - Isolate function scripts within a package (including the
     documentation for local paths)
-  - Enable users to repack a subset of self contained functions in a
-    package to allow for focused learning on a specific package
+  - Enable users to consolidate a subset of self contained functions in
+    a file(s) to allow for focused learning on a specific package
     functionality.
 
 > This package may cause some anxiety for package maintainers. This
@@ -542,7 +542,7 @@ $reduce.R
 
 ``` r
 pack_path <- repack(sub_x)
-#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmplFZ11a/foreman/unpacked.R
+#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpBy1aHx/foreman/unpacked.R
 ```
 
 Click the triangle to view the contents found in the file containing the
