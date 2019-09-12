@@ -21,9 +21,9 @@ knitr::opts_chunk$set(
 
 The goals of foreman are to:
 
-  - Unpack a package's functions to interrogate relationships of the functions within it.
-  - Isolate function scripts within a package (including the documentation for local paths)
-  - Enable users to consolidate a subset of self contained functions in a file(s) to allow for focused learning on a specific package functionality.
+  - [Unpack](#unpacking) a package's functions to interrogate [relationships](#relationships) of the functions within it.
+  - [Isolate](#subset) function scripts within a package (including the documentation for local paths)
+  - [Consolidate](#consolidation) a subset of self contained functions in a file(s) to allow for focused learning on a specific package functionality.
 
 > This package may cause some anxiety for package maintainers. This package is not meant to replace any parent package.
 
@@ -43,7 +43,9 @@ library(ggraph)
 library(igraph)
 ```
 
-### Unpacking a pacakge into a list
+### Unpacking
+
+Unpack a pacakge into a list
 
 ```{r}
 x <- unpack(path = '../forks/purrr/R', warn = FALSE)
@@ -115,7 +117,9 @@ ggraph(graph) +
 ```
 
 
-### Subsetting Package Functions
+### Subset
+
+Subsetting Package Functions
 
 ```{r}
 sub_x <- subset(x,'compose')
@@ -128,7 +132,9 @@ Click the triangle to view the contents found in the subset containing `compose`
 details::details(lapply(sub_x,get_text),summary = 'Package subset')
 ```
 
-### Consolidating Subsetted Functions into a File
+### Consolidation
+
+Consolidating Subsetted Functions into a File
 
 ```{r}
 pack_path <- repack(sub_x)

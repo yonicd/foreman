@@ -11,12 +11,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 The goals of foreman are to:
 
-  - Unpack a package’s functions to interrogate relationships of the
-    functions within it.
-  - Isolate function scripts within a package (including the
+  - [Unpack](#unpacking) a package’s functions to interrogate
+    [relationships](#relationships) of the functions within it.
+  - [Isolate](#subset) function scripts within a package (including the
     documentation for local paths)
-  - Enable users to consolidate a subset of self contained functions in
-    a file(s) to allow for focused learning on a specific package
+  - [Consolidate](#consolidation) a subset of self contained functions
+    in a file(s) to allow for focused learning on a specific package
     functionality.
 
 > This package may cause some anxiety for package maintainers. This
@@ -39,7 +39,9 @@ library(ggraph)
 library(igraph)
 ```
 
-### Unpacking a pacakge into a list
+### Unpacking
+
+Unpack a pacakge into a list
 
 ``` r
 x <- unpack(path = '../forks/purrr/R', warn = FALSE)
@@ -301,7 +303,9 @@ ggraph(graph) +
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
 
-### Subsetting Package Functions
+### Subset
+
+Subsetting Package Functions
 
 ``` r
 sub_x <- subset(x,'compose')
@@ -536,11 +540,13 @@ $reduce.R
 
 <br>
 
-### Consolidating Subsetted Functions into a File
+### Consolidation
+
+Consolidating Subsetted Functions into a File
 
 ``` r
 pack_path <- repack(sub_x)
-#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpphyzFH/foreman/unpacked.R
+#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//Rtmp1WctLO/foreman/unpacked.R
 ```
 
 Click the triangle to view the contents found in the file containing the
