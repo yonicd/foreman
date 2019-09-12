@@ -1,0 +1,143 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# foreman
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+The goals of foreman are to:
+
+  - Unpack a package's functions to interrogate relationships of the functions within it.
+  - Isolate function scripts within a package (including the documentation for local paths)
+  - Enable users to repack a subset of self contained functions in a package to allow for focused learning on a specific package functionality.
+
+> This package may cause some anxiety for package maintainers. This package is not meant to replace any parent package.
+
+## Installation
+
+``` r
+remotes::install_github("foreman")
+```
+
+## Example
+
+The package supports both compiled libraries and local paths. This example will use a local fork of `purrr`.
+
+```{r example,message=FALSE,warning=FALSE}
+library(foreman)
+library(ggraph)
+library(igraph)
+library(purrr)
+```
+
+### Unpacking a pacakge into a list
+
+```{r}
+x <- unpack(path = '../forks/purrr/R', warn = FALSE)
+```
+
+Click the triangle to view the contents found in `arrays.R`
+
+```{r,results='asis'}
+details::details(lapply(x$arrays.R,get_text),summary = 'arrays.R')
+```
+
+### Relationships
+
+```{r}
+x_rel <- relationship(x)
+```
+
+Relationships contained in `arrays.R`
+
+```{r}
+x_rel$arrays.R
+```
+
+Functions that `compose` calls
+
+```{r}
+relationship(x,parent = 'compose')
+```
+
+Functions who call `flatten`
+
+```{r}
+relationship(x,child = 'flatten')
+```
+
+### Convert relationships to a data.frame
+
+```{r}
+x_rel_df <- as.data.frame(x_rel)
+```
+
+Click the triangle to view the data.frame
+
+```{r,results='asis'}
+details::details(x_rel_df,summary = 'Relatives')
+```
+
+### Plotting the relationships
+
+```{r}
+
+graph <- igraph::graph_from_data_frame(x_rel_df,directed = TRUE)
+
+```
+ 
+```{r}
+igraph::V(graph)$parents <- names(igraph::V(graph))
+igraph::V(graph)$exported <- is_exported(igraph::V(graph)$parents,'purrr')
+```
+
+```{r,fig.dim=c(7,7)}
+ggraph(graph) +
+  geom_edge_link(
+    aes(colour = file),
+    arrow = grid::arrow(length = unit(0.05, "inches"))) +
+  geom_node_text(aes(label = parents),size = 3) +
+  labs(title = 'purrr function map', colour = 'Exported') + 
+  ggplot2::theme(legend.position   = 'bottom')
+
+```
+
+
+### Subsetting Package Functions
+
+```{r}
+sub_x <- subset(x,'compose')
+```
+
+Click the triangle to view the contents found in the subset containing `compose` and the packages the it calls.
+
+
+```{r,results='asis'}
+details::details(lapply(sub_x,get_text),summary = 'Package subset')
+```
+
+### Consolidating Subsetted Functions into a File
+
+```{r}
+pack_path <- repack(sub_x)
+```
+
+Click the triangle to view the contents found in the file containing the consolidated functions.
+
+```{r,results='asis'}
+details::details(file.path(pack_path,'unpacked.R'),summary = 'Consolidated Script')
+```
