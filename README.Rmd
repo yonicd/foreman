@@ -41,7 +41,6 @@ The package supports both compiled libraries and local paths. This example will 
 library(foreman)
 library(ggraph)
 library(igraph)
-library(purrr)
 ```
 
 ### Unpacking a pacakge into a list
@@ -102,7 +101,6 @@ graph <- igraph::graph_from_data_frame(x_rel_df,directed = TRUE)
  
 ```{r}
 igraph::V(graph)$parents <- names(igraph::V(graph))
-igraph::V(graph)$exported <- is_exported(igraph::V(graph)$parents,'purrr')
 ```
 
 ```{r,fig.dim=c(7,7)}
@@ -123,7 +121,7 @@ ggraph(graph) +
 sub_x <- subset(x,'compose')
 ```
 
-Click the triangle to view the contents found in the subset containing `compose` and the packages the it calls.
+Click the triangle to view the contents found in the subset containing `compose` and the functions the it calls.
 
 
 ```{r,results='asis'}

@@ -37,7 +37,6 @@ example will use a local fork of `purrr`.
 library(foreman)
 library(ggraph)
 library(igraph)
-library(purrr)
 ```
 
 ### Unpacking a pacakge into a list
@@ -287,7 +286,6 @@ graph <- igraph::graph_from_data_frame(x_rel_df,directed = TRUE)
 
 ``` r
 igraph::V(graph)$parents <- names(igraph::V(graph))
-igraph::V(graph)$exported <- is_exported(igraph::V(graph)$parents,'purrr')
 ```
 
 ``` r
@@ -310,7 +308,7 @@ sub_x <- subset(x,'compose')
 ```
 
 Click the triangle to view the contents found in the subset containing
-`compose` and the packages the it calls.
+`compose` and the functions the it calls.
 
 ``` r
 details::details(lapply(sub_x,get_text),summary = 'Package subset')
@@ -542,7 +540,7 @@ $reduce.R
 
 ``` r
 pack_path <- repack(sub_x)
-#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpBy1aHx/foreman/unpacked.R
+#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//RtmpphyzFH/foreman/unpacked.R
 ```
 
 Click the triangle to view the contents found in the file containing the
