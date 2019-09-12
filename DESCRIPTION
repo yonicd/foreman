@@ -1,13 +1,14 @@
 Package: foreman
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line) Use four spaces when
-         indenting paragraphs within the Description.
-License: What license is it under?
+Title: Unpacking, Interrogating and Subsetting R packages
+Version: 0.0.2
+Authors@R: person(given = "Jonathan", family = "Sidi", role = c("aut", "cre"),
+        email = "yonicd@gmail.com")
+Description: Unpacking, Interrogating and Subsetting R packages
+Depends: R (>= 3.2.0)
+Imports: utils,glue
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: utils,glue
 RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)

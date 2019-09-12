@@ -19,8 +19,11 @@ The goals of foreman are to:
     in a file(s) to allow for focused learning on a specific package
     functionality.
 
-> This package may cause some anxiety for package maintainers. This
-> package is not meant to replace any parent package.
+> Given these goals it is important to state that this package is not
+> meant to replace any parent package.
+
+The package supports both [local packages](#local-packages) and
+[compiled](#compiled-library) libraries.
 
 ## Installation
 
@@ -28,10 +31,9 @@ The goals of foreman are to:
 remotes::install_github("foreman")
 ```
 
-## Example
+## Local Packages
 
-The package supports both compiled libraries and local paths. This
-example will use a local fork of `purrr`.
+This example will use a local fork of `purrr`.
 
 ``` r
 library(foreman)
@@ -546,7 +548,7 @@ Consolidating Subsetted Functions into a File
 
 ``` r
 pack_path <- repack(sub_x)
-#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//Rtmp1WctLO/foreman/unpacked.R
+#> Functions packed to /var/folders/kx/t4h_mm1910sb7vhm_gnfnx2c0000gn/T//Rtmpgg7cm0/foreman/unpacked.R
 ```
 
 Click the triangle to view the contents found in the file containing the
@@ -775,3 +777,41 @@ map <- function(.x, .f, ...) {
 </details>
 
 <br>
+
+### Compiled Library
+
+This example will use the installed library `future`.
+
+Using foreman with an compiled libraries is also simple
+
+``` r
+library(future)
+#> 
+#> Attaching package: 'future'
+#> The following objects are masked from 'package:igraph':
+#> 
+#>     %->%, %<-%
+
+unpacked_future <- unpack(ns = 'future')%>%
+  relationship()%>%
+  as.data.frame()
+```
+
+``` r
+
+graph <- igraph::graph_from_data_frame(unpacked_future,directed = TRUE)
+igraph::V(graph)$parents <- names(igraph::V(graph))
+igraph::V(graph)$exported <- names(igraph::V(graph))%in%ls('package:future')
+```
+
+``` r
+ggraph(graph) +
+  geom_edge_link(
+    arrow = grid::arrow(length = unit(0.05, "inches")),alpha = 0.05) +
+  geom_node_text(aes(colour = exported,label = parents),size = 2) +
+  labs(title = 'future function map', colour = 'Exported') + 
+  ggplot2::theme(legend.position   = 'bottom')
+#> Using `nicely` as default layout
+```
+
+<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />

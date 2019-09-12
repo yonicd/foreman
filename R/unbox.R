@@ -24,6 +24,9 @@ unbox <- function(file = "", text = NULL) {
 
   parse_split <- lapply(parse_lines$root, split_lines, lines = text, parse_data = parse_data, parse_lines = parse_lines)
 
+  if(length(sapply(parse_split,attr,'name'))!=length(parse_split))
+    browser()
+
   names(parse_split) <- sapply(parse_split,attr,'name')
 
   parse_split

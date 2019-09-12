@@ -21,11 +21,11 @@ extract_lines <- function(fun, ns, td){
 
   on.exit(unlink(file_temp),add = TRUE)
 
-  utils::capture.output(print(script), file = file_temp)
+  utils::capture.output(print.function(script), file = file_temp)
 
   check.file <- readLines(file_temp)
 
-  body       <- check.file[!grepl("^<", check.file)]
+  body       <- check.file[-c(which(grepl("^<", check.file))[1]:length(check.file))]
 
   if(grepl('^[[:punct:]]',fun)){
 
