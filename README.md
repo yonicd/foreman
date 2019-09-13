@@ -28,7 +28,7 @@ The package supports both [local packages](#local-packages) and
 ## Installation
 
 ``` r
-remotes::install_github("foreman")
+remotes::install_github("yonicd/foreman")
 ```
 
 ## Local Packages
