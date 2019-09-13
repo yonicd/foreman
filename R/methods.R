@@ -28,11 +28,11 @@ print.box <- function(x,...){
 }
 
 #' @export
-as.data.frame.relationship <- function(obj){
+as.data.frame.relationship <- function(x, row.names = NULL, optional = FALSE, ...){
 
-  do.call('rbind',lapply(names(obj),function(nmx){
+  do.call('rbind',lapply(names(x),function(nmx){
 
-    xx <- obj[[nmx]]
+    xx <- x[[nmx]]
 
     ret <- lapply(names(xx),function(nm,file){
       data.frame(child = xx[[nm]], parent = nm, file = file, stringsAsFactors = FALSE)
